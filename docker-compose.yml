@@ -10,7 +10,7 @@ services:
       - ./api/:/srv/socialnet
       - static:/srv/socialnet/static
       - media:/srv/socialnet/media
-    working_dir: /srv/socialnet
+    working_dir: /srv/socialnet/socialnet
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
     env_file:
