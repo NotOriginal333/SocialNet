@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_spectacular',
     'apps.users',
+    'apps.posts',
+    'apps.comments',
+    'apps.follows',
 ]
 
 MIDDLEWARE = [
