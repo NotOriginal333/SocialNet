@@ -5,7 +5,7 @@ from rest_framework import (
 
 from apps.posts.models import Post
 from apps.posts.serializers import PostSerializer
-from apps.posts.permissions import IsAuthorOrReadOnly
+from apps.common.permissions import IsAuthorOrReadOnly
 
 
 class PostViewSet(viewsets.ModelViewSet):
