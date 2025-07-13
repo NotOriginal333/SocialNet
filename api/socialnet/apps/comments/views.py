@@ -5,7 +5,7 @@ from rest_framework import (
 
 from apps.comments.models import Comment
 from apps.comments.serializers import CommentSerializer
-from apps.comments.permissions import IsAuthorOrReadOnly
+from apps.common.permissions import IsAuthorOrReadOnly
 
 
 class CommentViewSet(viewsets.ModelViewSet):
