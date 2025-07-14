@@ -12,4 +12,5 @@ urlpatterns = [
     path('me/', views.ManageUserView.as_view(), name='me'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('test-celery/', views.TestCeleryView.as_view(), name='test-celery'),
 ]

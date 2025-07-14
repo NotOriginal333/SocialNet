@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   api:
+    container_name: socialnet_backend
     build:
       context: ./api
     ports:
@@ -17,6 +18,22 @@ services:
       - .env.dev
     depends_on:
       - db
+      - redis
+
+  celery:
+    build:
+      context: ./api
+    volumes:
+      - ./api/:/srv/socialnet
+      - static:/srv/socialnet/static
+      - media:/srv/socialnet/media
+    working_dir: /srv/socialnet/socialnet
+    command: celery -A config worker --loglevel=info
+    env_file:
+      - .env.dev
+    depends_on:
+      - db
+      - redis
 
   db:
     image: postgres:17-alpine3.22
@@ -26,6 +43,11 @@ services:
       - dev-db-data:/var/lib/postgresql/data
     env_file:
       - .env.dev
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
 
 volumes:
   dev-db-data:
