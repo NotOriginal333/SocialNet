@@ -140,5 +140,15 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Celery
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND", "redis://redis:6379/0")
+
+# Images
+IMAGE_STORAGE_CLASS = 'images.storage.local.LocalImageStorage'
+IMAGE_STORAGE_OPTIONS = {}
+
+THUMBNAIL_GENERATOR_CLASS = 'images.thumbnails.pillow.PillowThumbnailGenerator'
+THUMBNAIL_GENERATOR_OPTIONS = {
+    'size': (300, 300)
+}
