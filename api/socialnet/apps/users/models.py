@@ -38,11 +38,12 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
     email = models.EmailField(max_length=255, unique=True)
+    username = models.CharField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     birth_date = models.DateField(blank=True, null=True)
     # additional = models.ManyToManyField(AdditionalFields)
-    # avatar = models.ImageField(upload_to='')
+    # avatar = models.OneToOneField()
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 

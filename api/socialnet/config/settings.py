@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'apps.posts',
     'apps.comments',
     'apps.follows',
+    'apps.images',
 ]
 
 MIDDLEWARE = [
@@ -145,10 +146,20 @@ CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND", "redis://redis:6379/0")
 
 # Images
-IMAGE_STORAGE_CLASS = 'images.storage.local.LocalImageStorage'
-IMAGE_STORAGE_OPTIONS = {}
+IMAGE_STORAGE_CLASS = 'apps.images.storage.local.LocalImageStorage'
 
-THUMBNAIL_GENERATOR_CLASS = 'images.thumbnails.pillow.PillowThumbnailGenerator'
+IMAGE_LOCAL_BASE_PATH = os.getenv('IMAGE_LOCAL_BASE_PATH', 'media')
+base_path = Path(IMAGE_LOCAL_BASE_PATH)
+if not base_path.is_absolute():
+    base_path = Path(BASE_DIR) / base_path
+
+IMAGE_STORAGE_OPTIONS = {
+    'base_path': str(base_path),
+    'base_url': os.getenv('IMAGE_LOCAL_BASE_URL', '/media/'),
+}
+
+THUMBNAIL_GENERATOR_CLASS = 'apps.images.thumbnails.pillow.PillowThumbnailGenerator'
 THUMBNAIL_GENERATOR_OPTIONS = {
-    'size': (300, 300)
+    'base_path': os.getenv('THUMBNAIL_BASE_PATH', 'media'),
+    'suffix': '_thumb'
 }

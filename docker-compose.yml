@@ -9,8 +9,8 @@ services:
       - "8000:8000"
     volumes:
       - ./api/:/srv/socialnet
-      - static:/srv/socialnet/static
-      - media:/srv/socialnet/media
+      - ./api/static:/srv/socialnet/static
+      - ./api/media:/srv/socialnet/media
     working_dir: /srv/socialnet/socialnet
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
@@ -25,8 +25,8 @@ services:
       context: ./api
     volumes:
       - ./api/:/srv/socialnet
-      - static:/srv/socialnet/static
-      - media:/srv/socialnet/media
+      - ./api/static:/srv/socialnet/static
+      - ./api/media:/srv/socialnet/media
     working_dir: /srv/socialnet/socialnet
     command: celery -A config worker --loglevel=info
     env_file:
@@ -51,5 +51,4 @@ services:
 
 volumes:
   dev-db-data:
-  media:
-  static:
+

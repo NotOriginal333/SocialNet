@@ -13,4 +13,4 @@ class Post(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Post author: {self.author.email}, at {self.created_at:%Y-%m-%d %H:%M}"
+        return f"Post author: {self.author.username}, at {self.created_at:%Y-%m-%d %H:%M}"

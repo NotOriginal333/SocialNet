@@ -13,4 +13,4 @@ class Comment(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Comment author: {self.author.email}, post {self.post.id}, at {self.created_at:%Y-%m-%d %H:%M}"
+        return f"Comment author: {self.author.username}, post {self.post.id}, at {self.created_at:%Y-%m-%d %H:%M}"
