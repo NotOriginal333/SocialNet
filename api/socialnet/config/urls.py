@@ -14,4 +14,5 @@ urlpatterns = [
     path('posts/', include('apps.posts.urls')),
     path('comments/', include('apps.comments.urls')),
     path('follows/', include('apps.follows.urls')),
+    path('images/', include('apps.images.urls')),
 ]
