@@ -1,3 +1,5 @@
 from django.contrib import admin
+from models import UserImage, PostImage
 
-# Register your models here.
+admin.site.register(UserImage)
+admin.site.register(PostImage)

@@ -37,13 +37,20 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
+    ROLE_CHOICES = [
+        ('user', 'User'),
+        ('moderator', 'Moderator'),
+        ('admin', 'Admin'),
+        ('premium', 'Premium'),
+        ('guest', 'Guest'),
+    ]
     email = models.EmailField(max_length=255, unique=True)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
     username = models.CharField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     birth_date = models.DateField(blank=True, null=True)
     # additional = models.ManyToManyField(AdditionalFields)
-    # avatar = models.OneToOneField()
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
