@@ -74,6 +74,14 @@ class UserImageViewSet(BaseImageViewSet):
     def get_related_value(self):
         return self.request.user
 
+    def perform_create(self, serializer):
+        existing = self.get_queryset().first()
+        if existing:
+            serializer.instance = existing
+            self.perform_update(serializer)
+        else:
+            super().perform_create(serializer)
+
 
 class PostImageViewSet(BaseImageViewSet):
     serializer_class = PostImageSerializer
