@@ -20,7 +20,7 @@ services:
       - db
       - redis
 
-  celery:
+  celery-default:
     build:
       context: ./api
     volumes:
@@ -28,12 +28,45 @@ services:
       - ./api/socialnet/static:/srv/socialnet/static
       - ./api/socialnet/media:/srv/socialnet/media
     working_dir: /srv/socialnet/socialnet
-    command: celery -A config worker --loglevel=info
+    command: celery -A config worker -Q default -n worker_default@%h --loglevel=info
     env_file:
       - .env.dev
     depends_on:
       - db
       - redis
+    restart: always
+
+  celery-media:
+    build:
+      context: ./api
+    volumes:
+      - ./api/:/srv/socialnet
+      - ./api/socialnet/static:/srv/socialnet/static
+      - ./api/socialnet/media:/srv/socialnet/media
+    working_dir: /srv/socialnet/socialnet
+    command: celery -A config worker -Q media -n worker_media@%h --loglevel=info
+    env_file:
+      - .env.dev
+    depends_on:
+      - db
+      - redis
+    restart: always
+
+  celery-follows:
+    build:
+      context: ./api
+    volumes:
+      - ./api/:/srv/socialnet
+      - ./api/socialnet/static:/srv/socialnet/static
+      - ./api/socialnet/media:/srv/socialnet/media
+    working_dir: /srv/socialnet/socialnet
+    command: celery -A config worker -Q follows -n worker_follows@%h --loglevel=info
+    env_file:
+      - .env.dev
+    depends_on:
+      - db
+      - redis
+    restart: always
 
   db:
     image: postgres:17-alpine3.22
