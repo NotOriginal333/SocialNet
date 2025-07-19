@@ -12,11 +12,13 @@ class BaseImageSerializer(serializers.ModelSerializer):
 
 class UserImageSerializer(BaseImageSerializer):
     class Meta(BaseImageSerializer.Meta):
+        fields = BaseImageSerializer.Meta.fields + ['user']
         read_only_fields = ['user']
         model = UserImage
 
 
 class PostImageSerializer(BaseImageSerializer):
     class Meta(BaseImageSerializer.Meta):
+        fields = BaseImageSerializer.Meta.fields + ['post']
         read_only_fields = ['post']
         model = PostImage

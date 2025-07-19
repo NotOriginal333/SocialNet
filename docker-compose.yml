@@ -25,8 +25,8 @@ services:
       context: ./api
     volumes:
       - ./api/:/srv/socialnet
-      - ./api/static:/srv/socialnet/static
-      - ./api/media:/srv/socialnet/media
+      - ./api/socialnet/static:/srv/socialnet/static
+      - ./api/socialnet/media:/srv/socialnet/media
     working_dir: /srv/socialnet/socialnet
     command: celery -A config worker --loglevel=info
     env_file:

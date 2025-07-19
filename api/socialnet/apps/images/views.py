@@ -31,7 +31,9 @@ class BaseImageViewSet(viewsets.ModelViewSet):
         related_value = self.get_related_value()
 
         image = self.request.FILES.get(self.image_field_name)
+        print("Got image:", image)
         instance = serializer.save(**{self.related_field: related_value})
+        instance.refresh_from_db()
 
         if image:
             image_url = self.save_file(instance, image)
@@ -42,6 +44,8 @@ class BaseImageViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         image = self.request.FILES.get(self.image_field_name)
         instance = serializer.save()
+        instance.refresh_from_db()
+
         if image:
             image_url = self.save_file(instance, image)
             instance.image_url = image_url
@@ -88,7 +92,7 @@ class PostImageViewSet(BaseImageViewSet):
     queryset = PostImage.objects.all()
 
     image_field_name = 'image'
-    path_template = "posts/{instance.post.id}/{filename}"
+    path_template = "users/{instance.post.author.id}/posts/{instance.post.id}/{filename}"
     related_field = 'post'
     thumbnail_task = generate_thumbnail_for_postimage
 
@@ -96,7 +100,7 @@ class PostImageViewSet(BaseImageViewSet):
         return PostImage.objects.filter(post__author=self.request.user)
 
     def get_related_value(self):
-        post_id = self.request.data.get("post_id")
+        post_id = self.request.data.get("post")
         post = get_object_or_404(Post, id=post_id)
         if post.author != self.request.user:
             raise PermissionError("You can only upload to your own posts")
