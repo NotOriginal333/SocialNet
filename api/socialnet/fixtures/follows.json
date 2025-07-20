@@ -1,0 +1,578 @@
+[
+  {
+    "model": "follows.follow",
+    "pk": 1,
+    "fields": {
+      "following_user": 6,
+      "followed_user": 25
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 2,
+    "fields": {
+      "following_user": 6,
+      "followed_user": 13
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 3,
+    "fields": {
+      "following_user": 6,
+      "followed_user": 9
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 4,
+    "fields": {
+      "following_user": 7,
+      "followed_user": 10
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 5,
+    "fields": {
+      "following_user": 7,
+      "followed_user": 24
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 6,
+    "fields": {
+      "following_user": 7,
+      "followed_user": 22
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 7,
+    "fields": {
+      "following_user": 8,
+      "followed_user": 17
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 8,
+    "fields": {
+      "following_user": 8,
+      "followed_user": 11
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 9,
+    "fields": {
+      "following_user": 8,
+      "followed_user": 7
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 10,
+    "fields": {
+      "following_user": 9,
+      "followed_user": 26
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 11,
+    "fields": {
+      "following_user": 9,
+      "followed_user": 20
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 12,
+    "fields": {
+      "following_user": 9,
+      "followed_user": 25
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 13,
+    "fields": {
+      "following_user": 10,
+      "followed_user": 9
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 14,
+    "fields": {
+      "following_user": 10,
+      "followed_user": 6
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 15,
+    "fields": {
+      "following_user": 10,
+      "followed_user": 25
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 16,
+    "fields": {
+      "following_user": 11,
+      "followed_user": 18
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 17,
+    "fields": {
+      "following_user": 11,
+      "followed_user": 7
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 18,
+    "fields": {
+      "following_user": 11,
+      "followed_user": 17
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 19,
+    "fields": {
+      "following_user": 12,
+      "followed_user": 27
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 20,
+    "fields": {
+      "following_user": 12,
+      "followed_user": 26
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 21,
+    "fields": {
+      "following_user": 12,
+      "followed_user": 20
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 22,
+    "fields": {
+      "following_user": 13,
+      "followed_user": 17
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 23,
+    "fields": {
+      "following_user": 13,
+      "followed_user": 22
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 24,
+    "fields": {
+      "following_user": 13,
+      "followed_user": 19
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 25,
+    "fields": {
+      "following_user": 14,
+      "followed_user": 10
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 26,
+    "fields": {
+      "following_user": 14,
+      "followed_user": 26
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 27,
+    "fields": {
+      "following_user": 14,
+      "followed_user": 6
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 28,
+    "fields": {
+      "following_user": 15,
+      "followed_user": 13
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 29,
+    "fields": {
+      "following_user": 15,
+      "followed_user": 6
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 30,
+    "fields": {
+      "following_user": 15,
+      "followed_user": 22
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 31,
+    "fields": {
+      "following_user": 16,
+      "followed_user": 10
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 32,
+    "fields": {
+      "following_user": 16,
+      "followed_user": 9
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 33,
+    "fields": {
+      "following_user": 16,
+      "followed_user": 11
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 34,
+    "fields": {
+      "following_user": 17,
+      "followed_user": 7
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 35,
+    "fields": {
+      "following_user": 17,
+      "followed_user": 21
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 36,
+    "fields": {
+      "following_user": 17,
+      "followed_user": 13
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 37,
+    "fields": {
+      "following_user": 18,
+      "followed_user": 20
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 38,
+    "fields": {
+      "following_user": 18,
+      "followed_user": 14
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 39,
+    "fields": {
+      "following_user": 18,
+      "followed_user": 19
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 40,
+    "fields": {
+      "following_user": 19,
+      "followed_user": 18
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 41,
+    "fields": {
+      "following_user": 19,
+      "followed_user": 20
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 42,
+    "fields": {
+      "following_user": 19,
+      "followed_user": 12
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 43,
+    "fields": {
+      "following_user": 20,
+      "followed_user": 23
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 44,
+    "fields": {
+      "following_user": 20,
+      "followed_user": 27
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 45,
+    "fields": {
+      "following_user": 20,
+      "followed_user": 7
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 46,
+    "fields": {
+      "following_user": 21,
+      "followed_user": 16
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 47,
+    "fields": {
+      "following_user": 21,
+      "followed_user": 25
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 48,
+    "fields": {
+      "following_user": 21,
+      "followed_user": 6
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 49,
+    "fields": {
+      "following_user": 22,
+      "followed_user": 15
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 50,
+    "fields": {
+      "following_user": 22,
+      "followed_user": 16
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 51,
+    "fields": {
+      "following_user": 22,
+      "followed_user": 7
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 52,
+    "fields": {
+      "following_user": 23,
+      "followed_user": 13
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 53,
+    "fields": {
+      "following_user": 23,
+      "followed_user": 28
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 54,
+    "fields": {
+      "following_user": 23,
+      "followed_user": 15
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 55,
+    "fields": {
+      "following_user": 24,
+      "followed_user": 27
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 56,
+    "fields": {
+      "following_user": 24,
+      "followed_user": 20
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 57,
+    "fields": {
+      "following_user": 24,
+      "followed_user": 13
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 58,
+    "fields": {
+      "following_user": 25,
+      "followed_user": 14
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 59,
+    "fields": {
+      "following_user": 25,
+      "followed_user": 22
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 60,
+    "fields": {
+      "following_user": 25,
+      "followed_user": 16
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 61,
+    "fields": {
+      "following_user": 26,
+      "followed_user": 8
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 62,
+    "fields": {
+      "following_user": 26,
+      "followed_user": 25
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 63,
+    "fields": {
+      "following_user": 26,
+      "followed_user": 20
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 64,
+    "fields": {
+      "following_user": 27,
+      "followed_user": 24
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 65,
+    "fields": {
+      "following_user": 27,
+      "followed_user": 29
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 66,
+    "fields": {
+      "following_user": 27,
+      "followed_user": 14
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 67,
+    "fields": {
+      "following_user": 28,
+      "followed_user": 21
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 68,
+    "fields": {
+      "following_user": 28,
+      "followed_user": 20
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 69,
+    "fields": {
+      "following_user": 28,
+      "followed_user": 16
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 70,
+    "fields": {
+      "following_user": 29,
+      "followed_user": 17
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 71,
+    "fields": {
+      "following_user": 29,
+      "followed_user": 13
+    }
+  },
+  {
+    "model": "follows.follow",
+    "pk": 72,
+    "fields": {
+      "following_user": 29,
+      "followed_user": 16
+    }
+  }
+]

@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from apps.follows.models import Follow
+from apps.follows.models import Follow, FollowRecommendation
+from apps.users.serializers import UserSerializer
 
 
 class FollowSerializer(serializers.ModelSerializer):
@@ -28,3 +29,12 @@ class FollowSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['following_user'] = self.context['request'].user
         return super().create(validated_data)
+
+
+class FollowRecommendationSerializer(serializers.ModelSerializer):
+    recommended_users = UserSerializer(many=True)
+
+    class Meta:
+        model = FollowRecommendation
+        fields = ['id', 'user', 'recommended_users', 'updated_at']
+        read_only_fields = ['id']

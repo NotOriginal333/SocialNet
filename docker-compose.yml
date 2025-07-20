@@ -9,8 +9,8 @@ services:
       - "8000:8000"
     volumes:
       - ./api/:/srv/socialnet
-      - ./api/static:/srv/socialnet/static
-      - ./api/media:/srv/socialnet/media
+      - ./api/socialnet/static:/srv/socialnet/static
+      - ./api/socialnet/media:/srv/socialnet/media
     working_dir: /srv/socialnet/socialnet
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
@@ -34,7 +34,7 @@ services:
     depends_on:
       - db
       - redis
-    restart: always
+    restart: on-failure
 
   celery-media:
     build:
@@ -50,7 +50,7 @@ services:
     depends_on:
       - db
       - redis
-    restart: always
+    restart: on-failure
 
   celery-follows:
     build:
@@ -66,7 +66,7 @@ services:
     depends_on:
       - db
       - redis
-    restart: always
+    restart: on-failure
 
   db:
     image: postgres:17-alpine3.22
