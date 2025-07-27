@@ -16,13 +16,33 @@ services:
       sh -c "python manage.py runserver 0.0.0.0:8000"
     env_file:
       - .env.dev
+    networks:
+      - backend_net
+      - socialnet_net
     depends_on:
-      - db
+      - postgres_db
       - redis
+
+  auth_proxy:
+    build:
+      context: ./auth_proxy
+    container_name: auth_proxy
+    volumes:
+      - ./auth_proxy/:/srv/auth_proxy
+    working_dir: /srv/auth_proxy
+    command: >
+      sh -c "flask run --host=0.0.0.0 --port=5000"
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./auth_proxy/.env.dev
+    networks:
+      - socialnet_net
 
   celery-default:
     build:
       context: ./api
+    container_name: celery_default
     volumes:
       - ./api/:/srv/socialnet
       - ./api/socialnet/static:/srv/socialnet/static
@@ -32,13 +52,16 @@ services:
     env_file:
       - .env.dev
     depends_on:
-      - db
+      - postgres_db
       - redis
     restart: on-failure
+    networks:
+      - backend_net
 
   celery-media:
     build:
       context: ./api
+    container_name: celery_media
     volumes:
       - ./api/:/srv/socialnet
       - ./api/socialnet/static:/srv/socialnet/static
@@ -48,13 +71,16 @@ services:
     env_file:
       - .env.dev
     depends_on:
-      - db
+      - postgres_db
       - redis
     restart: on-failure
+    networks:
+      - backend_net
 
   celery-follows:
     build:
       context: ./api
+    container_name: celery_follows
     volumes:
       - ./api/:/srv/socialnet
       - ./api/socialnet/static:/srv/socialnet/static
@@ -64,11 +90,14 @@ services:
     env_file:
       - .env.dev
     depends_on:
-      - db
+      - postgres_db
       - redis
     restart: on-failure
+    networks:
+      - backend_net
 
-  db:
+  postgres_db:
+    container_name: postgres_db
     image: postgres:17-alpine3.22
     ports:
       - "5432:5432"
@@ -76,12 +105,22 @@ services:
       - dev-db-data:/var/lib/postgresql/data
     env_file:
       - .env.dev
+    networks:
+      - backend_net
 
   redis:
+    container_name: redis
     image: redis:7-alpine
     ports:
       - "6379:6379"
+    networks:
+      - backend_net
 
 volumes:
   dev-db-data:
 
+networks:
+  backend_net:
+    driver: bridge
+  socialnet_net:
+    driver: bridge
