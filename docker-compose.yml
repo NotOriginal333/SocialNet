@@ -17,8 +17,10 @@ services:
     env_file:
       - .env.dev
     networks:
-      - backend_net
-      - socialnet_net
+      backend_net:
+      socialnet_net:
+        aliases:
+          - api.local
     depends_on:
       - postgres_db
       - redis
@@ -37,7 +39,9 @@ services:
     env_file:
       - ./auth_proxy/.env.dev
     networks:
-      - socialnet_net
+      socialnet_net:
+        aliases:
+          - proxy.local
 
   celery-default:
     build:
