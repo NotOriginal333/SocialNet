@@ -75,7 +75,9 @@ cp .env.example .env.dev
 
 ### 2. Build and Run
 
-```docker-compose up --build```
+```bash
+docker-compose up --build
+```
 
 #### This will start the following containers:
 
@@ -206,7 +208,7 @@ cp .env.example .env.dev
 **Notes**
 
 * Auth is powered by **djangorestframework-simplejwt**.
-* All endpoints go through the Flask proxy (localhost:5000), which forwards requests to Django (localhost:8000).
+* All endpoints go through the Flask API Gateway (localhost:5000), which forwards requests to Django (localhost:8000).
 
 ### 5. Media and Image Handling
 
@@ -224,4 +226,6 @@ cp .env.example .env.dev
 Django admin panel is available at [/admin/]() (superuser setup required).
 
 You can run management commands with:
-`docker-compose exec api python manage.py createsuperuser`
+``` bash
+docker-compose exec api python manage.py createsuperuser
+```
