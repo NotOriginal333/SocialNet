@@ -3,11 +3,11 @@ from urllib.parse import urlparse, urljoin
 
 import requests
 
-bp = Blueprint("proxy", __name__)
+bp = Blueprint("api_gateway", __name__)
 
 
 @bp.route("/<path:path>", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
-def proxy(path):
+def api_gateway(path):
     base_url = current_app.config['DJANGO_BACKEND_URL']
     backend_url = urljoin(base_url + '/', path)
 
@@ -20,8 +20,5 @@ def proxy(path):
 
     func = getattr(requests, method)
     resp = func(backend_url, headers=headers, data=request.get_data(), params=request.args)
-
-    print("proxy path:", path)
-    print("backend_url:", backend_url)
 
     return Response(resp.content, status=resp.status_code, content_type=resp.headers.get("Content-Type"))

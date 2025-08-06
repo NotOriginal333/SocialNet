@@ -10,7 +10,7 @@ def create_app():
 
     db.init_app(app)
 
-    from .routes.proxy import bp as proxy_bp
-    app.register_blueprint(proxy_bp)
+    from .routes.api_gateway import bp as api_gateway_bp
+    app.register_blueprint(api_gateway_bp)
 
     return app

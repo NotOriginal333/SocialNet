@@ -13,7 +13,9 @@ services:
       - ./api/socialnet/media:/srv/socialnet/media
     working_dir: /srv/socialnet/socialnet
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c " python manage.py makemigrations &&
+      python manage.py migrate &&      
+      python manage.py runserver 0.0.0.0:8000"
     env_file:
       - .env.dev
     networks:
@@ -25,13 +27,13 @@ services:
       - postgres_db
       - redis
 
-  auth_proxy:
+  api_gateway:
     build:
-      context: ./auth_proxy
-    container_name: auth_proxy
+      context: ./api_gateway
+    container_name: api_gateway
     volumes:
-      - ./auth_proxy/:/srv/auth_proxy
-    working_dir: /srv/auth_proxy
+      - ./api_gateway/:/srv/api_gateway
+    working_dir: /srv/api_gateway
     command: >
       sh -c "flask run --host=0.0.0.0 --port=5000"
     ports:

@@ -2,7 +2,7 @@ FROM python:3.12-alpine3.22
 
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /auth_proxy
+WORKDIR /api_gateway
 
 COPY requirements.txt /tmp/requirements.txt
 COPY . .
