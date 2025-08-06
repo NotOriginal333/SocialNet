@@ -37,7 +37,7 @@ services:
     ports:
       - "5000:5000"
     env_file:
-      - ./auth_proxy/.env.dev
+      - .env.dev
     networks:
       socialnet_net:
         aliases:
