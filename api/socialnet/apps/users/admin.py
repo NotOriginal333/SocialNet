@@ -8,7 +8,7 @@ from . import models
 class UserAdmin(BaseUserAdmin):
     """Define the admin pages for users."""
     ordering = ['id']
-    list_display = ['email', 'first_name', 'last_name']
+    list_display = ['email', 'username', 'first_name', 'last_name']
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (
@@ -31,6 +31,7 @@ class UserAdmin(BaseUserAdmin):
                 'email',
                 'password1',
                 'password2',
+                'username',
                 'first_name',
                 'last_name',
                 'birth_date',

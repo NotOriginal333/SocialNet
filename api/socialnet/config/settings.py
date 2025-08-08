@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -112,14 +113,37 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'apps.common.permissions.RoleScopePermission',
     ),
 }
 
 AUTH_USER_MODEL = 'users.User'
+
+# OAuth2
+
+OAUTH2_PROVIDER = {
+    "ACCESS_TOKEN_EXPIRE_SECONDS": 3600,
+    "REFRESH_TOKEN_EXPIRE_SECONDS": 86400,
+    "ROTATE_REFRESH_TOKEN": True,
+    "OAUTH2_BACKEND_CLASS": "oauth2_provider.oauth2_backends.JSONOAuthLibCore",
+    "ACCESS_TOKEN_GENERATOR": "oauth2_provider.jwt.AccessTokenJWTGenerator",
+    'SCOPES': {
+        'read': 'Read access',
+        'write': 'Write access',
+        'moderate': 'Moderate content',
+        'admin': 'Full admin access',
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/

@@ -1,7 +1,9 @@
 from rest_framework import viewsets, permissions
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
+
 from django.shortcuts import get_object_or_404
+
 from apps.images.models import UserImage, PostImage
 from apps.images.serializers import UserImageSerializer, PostImageSerializer
 from apps.images.tasks import generate_thumbnail_for_userimage, generate_thumbnail_for_postimage
@@ -10,7 +12,6 @@ from apps.posts.models import Post
 
 
 class BaseImageViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     parser_classes = [MultiPartParser]
     lookup_field = 'pk'
 

@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
+
 from rest_framework import (
     viewsets,
-    permissions,
     generics
 )
 from rest_framework.exceptions import ValidationError
@@ -17,10 +17,8 @@ from apps.users.models import User
 class FollowViewSet(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
-
         return self.queryset.filter(following_user=self.request.user)
 
     def perform_create(self, serializer):
@@ -36,7 +34,6 @@ class FollowViewSet(viewsets.ModelViewSet):
 
 
 class FollowRecommendationView(generics.RetrieveAPIView):
-    permission_classes = [permissions.IsAuthenticated]
     serializer_class = FollowRecommendationSerializer
 
     def get_object(self):

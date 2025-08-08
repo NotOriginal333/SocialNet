@@ -1,4 +1,5 @@
 from django.db import models
+
 from apps.users.models import User
 from apps.follows.models import Follow, FollowRecommendation
 

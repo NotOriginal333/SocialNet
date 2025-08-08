@@ -1,7 +1,10 @@
 from celery import shared_task
+
 from django.apps import apps
-from .services import get_thumbnail_generator
+
 import logging
+
+from .services import get_thumbnail_generator
 
 logger = logging.getLogger(__name__)
 

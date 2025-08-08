@@ -1,5 +1,7 @@
 from celery import shared_task
+
 from django.contrib.auth import get_user_model
+
 from .services import generate_recommendations_for_user
 
 User = get_user_model()

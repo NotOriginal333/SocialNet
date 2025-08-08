@@ -42,8 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('user', 'User'),
         ('moderator', 'Moderator'),
         ('admin', 'Admin'),
-        ('premium', 'Premium'),
-        #  ('guest', 'Guest'),
+        ('premium', 'Premium')
     ]
     email = models.EmailField(max_length=255, unique=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')

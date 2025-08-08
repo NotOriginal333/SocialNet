@@ -1,6 +1,7 @@
 from django.db import models
-from apps.posts.models import Post
 from django.contrib.auth import get_user_model
+
+from apps.posts.models import Post
 
 
 class BaseImage(models.Model):

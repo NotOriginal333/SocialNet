@@ -1,5 +1,7 @@
 from PIL import Image as PILImage
+
 from pathlib import Path
+
 from .base import ThumbnailGeneratorInterface
 
 

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from apps.follows.models import Follow, FollowRecommendation
 from apps.users.serializers import UserSerializer
 
