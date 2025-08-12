@@ -129,19 +129,23 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'users.User'
 
+LOGIN_URL = '/admin/login/'
+
 # OAuth2
 
 OAUTH2_PROVIDER = {
-    "ACCESS_TOKEN_EXPIRE_SECONDS": 3600,
-    "REFRESH_TOKEN_EXPIRE_SECONDS": 86400,
-    "ROTATE_REFRESH_TOKEN": True,
-    "OAUTH2_BACKEND_CLASS": "oauth2_provider.oauth2_backends.JSONOAuthLibCore",
-    "ACCESS_TOKEN_GENERATOR": "oauth2_provider.jwt.AccessTokenJWTGenerator",
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 3600,
+    'REFRESH_TOKEN_EXPIRE_SECONDS': 86400,
+    'ROTATE_REFRESH_TOKEN': True,
+    'OAUTH2_VALIDATOR_CLASS': 'apps.users.oauth2_validators.CustomOAuth2Validator',
+    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
     'SCOPES': {
-        'read': 'Read access',
-        'write': 'Write access',
-        'moderate': 'Moderate content',
-        'admin': 'Full admin access',
+        'read': 'Read access to own and public content',
+        'create': 'Create own content',
+        'update': 'Update own content',
+        'delete': 'Delete own content',
+        'moderate': 'Moderate user-generated content',
+        'admin': 'Full administrative access',
     }
 }
 

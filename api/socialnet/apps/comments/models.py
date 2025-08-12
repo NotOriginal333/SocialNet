@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
     post = models.ForeignKey('posts.Post', on_delete=models.CASCADE, related_name='comments')
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -13,4 +13,4 @@ class Comment(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Comment author: {self.author.username}, post {self.post.id}, at {self.created_at:%Y-%m-%d %H:%M}"
+        return f"Comment author: {self.owner.username}, post {self.post.id}, at {self.created_at:%Y-%m-%d %H:%M}"

@@ -69,12 +69,12 @@ class UserImageViewSet(BaseImageViewSet):
 
     image_field_name = 'image'
     path_template = "users/{instance.user.id}/avatar.jpg"
-    related_field = 'user'
+    related_field = 'owner'
     thumbnail_task = generate_thumbnail_for_userimage
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return UserImage.objects.filter(user=self.request.user)
+        return UserImage.objects.filter(owner=self.request.user)
 
     def get_related_value(self):
         return self.request.user
@@ -98,7 +98,7 @@ class PostImageViewSet(BaseImageViewSet):
     thumbnail_task = generate_thumbnail_for_postimage
 
     def get_queryset(self):
-        return PostImage.objects.filter(post__author=self.request.user)
+        return PostImage.objects.filter(post__owner=self.request.user)
 
     def get_related_value(self):
         post_id = self.request.data.get("post")

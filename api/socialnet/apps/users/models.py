@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -19,12 +21,16 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, password, **extra_fields):
         """Create and return a new superuser."""
-        user = self.create_user(email, password)
+        if 'username' not in extra_fields or not extra_fields['username']:
+            extra_fields['username'] = str(uuid.uuid4())[:30]
+
+        user = self.create_user(email, password, **extra_fields)
         user.is_staff = True
         user.is_superuser = True
         user.role = 'admin'
+
         user.save(using=self._db)
 
         return user
@@ -57,3 +63,4 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']

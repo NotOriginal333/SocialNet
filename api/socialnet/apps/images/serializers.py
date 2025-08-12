@@ -13,8 +13,8 @@ class BaseImageSerializer(serializers.ModelSerializer):
 
 class UserImageSerializer(BaseImageSerializer):
     class Meta(BaseImageSerializer.Meta):
-        fields = BaseImageSerializer.Meta.fields + ['user']
-        read_only_fields = ['user']
+        fields = BaseImageSerializer.Meta.fields + ['owner']
+        read_only_fields = ['owner']
         model = UserImage
 
 

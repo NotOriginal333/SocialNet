@@ -17,10 +17,10 @@ User = get_user_model()
 
 
 class UserImage(BaseImage):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='avatar')
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name='avatar')
 
     def __str__(self):
-        return f"Avatar for {self.user.username}"
+        return f"Avatar for {self.owner.username}"
 
 
 class PostImage(BaseImage):
