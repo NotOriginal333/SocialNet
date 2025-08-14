@@ -4,9 +4,9 @@ from django.contrib.auth import get_user_model
 from apps.users import models
 
 
-def create_user(email='user@example.com', password='testpass123'):
+def create_user(email='user@example.com', password='testpass123', username='testuser'):
     """Create and return a new user."""
-    return get_user_model().objects.create_user(email, password)
+    return get_user_model().objects.create_user(email, password, username)
 
 
 class ModelTests(TestCase):
@@ -16,9 +16,11 @@ class ModelTests(TestCase):
         """Test creating a user with an email is successful."""
         email = 'test@example.com'
         password = 'testpass123'
+        username = 'testuser'
         user = get_user_model().objects.create_user(
             email=email,
-            password=password
+            password=password,
+            username=username
         )
 
         self.assertEqual(user.email, email)
@@ -27,14 +29,19 @@ class ModelTests(TestCase):
     def test_new_user_email_normalized(self):
         """Test the email for a new user is normalized."""
         sample_emails = [
-            ['test1@EXAMPLE.com', 'test1@example.com'],
-            ['Test2@Example.com', 'Test2@example.com'],
-            ['TEST3@EXAMPLE.COM', 'TEST3@example.com'],
-            ['test4@example.COM', 'test4@example.com'],
+            ('test1@EXAMPLE.com', 'test1@example.com'),
+            ('Test2@Example.com', 'Test2@example.com'),
+            ('TEST3@EXAMPLE.COM', 'TEST3@example.com'),
+            ('test4@example.COM', 'test4@example.com'),
         ]
+        sample_usernames = ['test1', 'test2', 'test3', 'test4']
 
-        for email, expected in sample_emails:
-            user = get_user_model().objects.create_user(email, 'samle123')
+        for i, (email, expected) in enumerate(sample_emails):
+            user = get_user_model().objects.create_user(
+                email=email,
+                password='sample123',
+                username=sample_usernames[i]
+            )
             self.assertEqual(user.email, expected)
 
     def test_new_user_without_email_raises_error(self):

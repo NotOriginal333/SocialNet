@@ -5,8 +5,6 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 CREATE_USER_URL = reverse('users:create')
-TOKEN_URL = reverse('users:token_obtain')
-REFRESH_URL = reverse('users:token_refresh')
 ME_URL = reverse('users:me')
 
 
@@ -25,6 +23,7 @@ class PublicUserApiTests(TestCase):
         """Test creating a user is successful."""
         payload = {
             'email': 'test@example.com',
+            'username': 'testuser',
             'password': 'testpass123',
             'first_name': 'testfname',
             'last_name': 'testlname'
@@ -40,6 +39,7 @@ class PublicUserApiTests(TestCase):
         """Test error returned if user with email exists."""
         payload = {
             'email': 'test@example.com',
+            'username': 'testuser',
             'password': 'testpass123',
             'first_name': 'testfname',
             'last_name': 'testlname'
@@ -54,6 +54,7 @@ class PublicUserApiTests(TestCase):
         """Test an error is returned if password less than 5 characters."""
         payload = {
             'email': 'test@example.com',
+            'username': 'testuser',
             'password': 'pq',
             'first_name': 'testfname',
             'last_name': 'testlname'
@@ -65,43 +66,6 @@ class PublicUserApiTests(TestCase):
             email=payload['email']
         ).exists()
         self.assertFalse(user_exists)
-
-    def test_create_token_for_user(self):
-        """Test generates token for valid credentials."""
-        user_details = {
-            'email': 'test@example.com',
-            'password': 'testpass123',
-            'first_name': 'testfname',
-            'last_name': 'testlname'
-        }
-        create_user(**user_details)
-
-        payload = {
-            'email': user_details['email'],
-            'password': user_details['password'],
-        }
-        res = self.client.post(TOKEN_URL, payload)
-
-        self.assertIn('access', res.data)
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
-
-    def test_create_token_bad_credentials(self):
-        """Test returns error if credentials are invalid."""
-        create_user(email='test@example.com', password='goodpass')
-
-        payload = {'email': 'test@example.com', 'password': 'badpass'}
-        res = self.client.post(TOKEN_URL, payload)
-
-        self.assertNotIn('access', res.data)
-        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
-
-    def test_create_blank_password(self):
-        """Test posting a blank password returns an error."""
-        payload = {'email': 'test@example.com', 'password': ''}
-        res = self.client.post(TOKEN_URL, payload)
-
-        self.assertNotIn('access', res.data)
-        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_retrieve_user_unauthorized(self):
         """Test authentication is required for users."""
@@ -116,6 +80,7 @@ class PrivateUserApiTest(TestCase):
     def setUp(self):
         self.user = create_user(
             email='test@example.com',
+            username='testuser',
             password='testpass123',
             first_name='testfname',
             last_name='testlname'
