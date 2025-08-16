@@ -74,9 +74,6 @@ class OAuth2FlowTests(TestCase):
 
         response = self.client.get("/o/authorize/", params)
 
-        print(f"Response status code: {response.status_code}")
-        print(f"Response content: {response.content.decode()}")
-
         self.assertEqual(response.status_code, 302, msg=f"Authorize failed: {response.content.decode()}")
         redirect_url = response["Location"]
 

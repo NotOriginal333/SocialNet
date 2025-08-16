@@ -68,7 +68,7 @@ class UserImageViewSet(BaseImageViewSet):
     queryset = UserImage.objects.all()
 
     image_field_name = 'image'
-    path_template = "users/{instance.user.id}/avatar.jpg"
+    path_template = "users/{instance.owner.id}/avatar.jpg"
     related_field = 'owner'
     thumbnail_task = generate_thumbnail_for_userimage
     permission_classes = [permissions.IsAuthenticated]
@@ -93,7 +93,7 @@ class PostImageViewSet(BaseImageViewSet):
     queryset = PostImage.objects.all()
 
     image_field_name = 'image'
-    path_template = "users/{instance.post.author.id}/posts/{instance.post.id}/{filename}"
+    path_template = "users/{instance.post.owner.id}/posts/{instance.post.id}/{filename}"
     related_field = 'post'
     thumbnail_task = generate_thumbnail_for_postimage
 

@@ -1,12 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
-from apps.users import models
-
-
-def create_user(email='user@example.com', password='testpass123', username='testuser'):
-    """Create and return a new user."""
-    return get_user_model().objects.create_user(email, password, username)
+from apps.common.test import create_user
 
 
 class ModelTests(TestCase):

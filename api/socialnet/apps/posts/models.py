@@ -12,4 +12,4 @@ class Post(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Post owner: {self.owner.username}, at {self.created_at:%Y-%m-%d %H:%M}"
+        return f"Post owner: {self.owner.email}, at {self.created_at:%Y-%m-%d %H:%M}"
