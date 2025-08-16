@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 from django.urls import reverse
 
@@ -126,3 +127,48 @@ class TestPostsWithImagesAPI(APITestCase):
 
         self.assertTrue(post.images.exists())
         self.assertIn(post_image, post.images.all())
+
+
+class TestPostsReadOnlyAPI(APITestCase):
+    """Tests for retrieving posts and images without authentication."""
+
+    def setUp(self):
+        self.user = create_user(
+            email="user@example.com",
+            password="testpass",
+            username="usertest"
+        )
+        self.post = Post.objects.create(owner=self.user, content="Test post content")
+
+        self.post_image = PostImage.objects.create(
+            post=self.post,
+            image_url="http://example.com/test.jpg",
+            thumbnail_url="http://example.com/test_thumb.jpg"
+        )
+
+    def test_get_post_list(self):
+        """Test retrieve list of posts with images."""
+        url = reverse("posts-list")
+        res = self.client.get(url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertTrue(len(res.data) > 0)
+
+        post_data = res.data[0]
+        self.assertEqual(post_data["content"], self.post.content)
+
+        images = post_data.get("images", [])
+        self.assertTrue(any(img["image_url"] == self.post_image.image_url for img in images))
+        self.assertTrue(any(img["thumbnail_url"] == self.post_image.thumbnail_url for img in images))
+
+    def test_get_post_detail(self):
+        """Test retrieve single post with images."""
+        url = reverse("posts-detail", args=[self.post.id])
+        res = self.client.get(url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data["content"], self.post.content)
+
+        images = res.data.get("images", [])
+        self.assertTrue(any(img["image_url"] == self.post_image.image_url for img in images))
+        self.assertTrue(any(img["thumbnail_url"] == self.post_image.thumbnail_url for img in images))
