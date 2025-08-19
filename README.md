@@ -18,6 +18,7 @@ network platforms.
 - **Images:** Local storage (S3-ready architecture)
 
 ## Project Structure
+
 ```
 ├── api/                                      # Main Django backend (SocialNet)
 │   ├── Dockerfile                            # Docker image for Django API
@@ -46,7 +47,6 @@ network platforms.
 │   ├── requirements.txt                      # Python dependencies
 │   ├── wsgi.py                               # WSGI entrypoint for the server
 │   ├── app/                                  # Flask application code
-│   │   ├── core/                             # Shared utilities, config, DI
 │   │   ├── routes/                           # API routes
 │   │   │   ├── api_gateway.py                # Gateway logic to Django API
 │   │   │   └── __init__.py
@@ -65,6 +65,7 @@ network platforms.
 ## Getting Started
 
 ---
+
 ### 1. Clone the Repository
 
 ```bash
@@ -92,17 +93,37 @@ docker-compose up --build
 ### 3. Accessing the Services
 
 * **Django API**:    http://localhost:8000
-* **Flask Proxy**:    http://localhost:5000
+* **Flask API Gateway**:    http://localhost:5000
 
 ### 4. Testing examples
 
-#### User Registration and JWT Authentication
+#### User Registration and Authentication
 
-* **Step 1: Register a New User** \
-  URL: `POST http://localhost:5000/users/create/` \
-  Headers: \
-  `Content-Type: application/json`\
-  Body:
+**Step 1: Create a Public OAuth2 Client**
+
+**URL (Django Admin):** `http://localhost:8000/admin/oauth2_provider/application/`
+
+- **Steps:**
+    1. Log in to Django admin.
+    2. Navigate to **Applications → Add Application**.
+    3. Fill the form:
+        - **Name:** `Postman Public Client` (or any descriptive name)
+        - **Client type:** `Public`
+        - **Authorization grant type:** `Authorization code`
+        - **Redirect URIs:** `<your_redirect_uri>` (e.g., `https://oauth.pstmn.io/v1/callback`)
+        - **Skip authorization (optional):** unchecked
+    4. Save.
+
+**Documentation**: [Django OAuth Toolkit - Applications](https://django-oauth-toolkit.readthedocs.io/en/latest/tutorial/tutorial_01.html#applications)
+
+---
+
+**Step 2: Register a New User** \
+**URL**: `POST http://localhost:5000/users/create/` \
+**Headers**: \
+`Content-Type: application/json`\
+**Body**:
+
 ```json
   {
   "username": "john_doe",
@@ -110,9 +131,11 @@ docker-compose up --build
   "password": "strongpassword123",
   "first_name": "John",
   "last_name": "Doe"
-  }
+}
   ```
-  Example (curl): 
+
+**Example (curl)**:
+
 ```bash
   curl -X POST http://localhost:5000/users/create/ \
   -H "Content-Type: application/json" \
@@ -125,21 +148,70 @@ docker-compose up --build
   }'
   ```
 
-* **Postman Quick Guide**
-    * Create a new user at **POST /users/create/**
-    * Authenticate via **POST /users/token/** to receive access and refresh tokens.
-    * Use the access token in headers as: `Authorization: Bearer <access_token>`
-    * Refresh tokens via **POST /users/token/refresh/** when the access token expires.
+**Step 2: Obtain Authorization Code (PKCE Flow)**
+
+**Endpoint**: `GET /o/authorize/`
+
+**Parameters:**
+
+- `client_id`: ID of your public client
+- `response_type`: `code`
+- `redirect_uri`: must match your client
+- `scope`: optional scopes
+- `code_challenge`: generated from `code_verifier`
+- `code_challenge_method`: `S256`
+
+**Documentation**: [Django OAuth Toolkit – Authorization Code Flow](https://django-oauth-toolkit.readthedocs.io/en/latest/tutorial/tutorial_04.html)
+
+> **Note:** Use your frontend or Postman to initiate this GET request. The response will redirect
+> with `code=<auth_code>`.
+
+**Step 3: Exchange Authorization Code for Tokens**
+
+**Endpoint**: `POST /o/token/`  
+**Headers**: `Content-Type: application/json`  
+**Body Example**:
+
+```json
+{
+  "grant_type": "authorization_code",
+  "client_id": "<your-public-client-id>",
+  "code": "<authorization-code-from-step-2>",
+  "redirect_uri": "<your-redirect-uri>",
+  "code_verifier": "<original-code-verifier>"
+} 
+```
+
+**Response Example**:
+
+```json
+{
+  "access_token": "<access-token>",
+  "expires_in": 3600,
+  "refresh_token": "<refresh-token>",
+  "scope": "read write",
+  "token_type": "Bearer"
+}
+```
+
+**Step 4: Use Access Token to Authenticate Requests**
+
+**Add header**: `Authorization: Bearer <access-token>`
+
+**Example GET Request (Postman or Curl)**: 
+```bash
+curl -X GET http://localhost:5000/posts/ \
+  -H "Authorization: Bearer <access-token>"
+```
 
 **Notes**
 
-* Auth is powered by **djangorestframework-simplejwt**.
-* All endpoints go through the Flask API Gateway (localhost:5000), which forwards requests to Django (localhost:8000).
+* Auth is powered by **django-oauth-toolkit**.
+* All endpoints can go through the Flask API Gateway (localhost:5000), which forwards requests to Django (localhost:8000).
 
 ### 5. Media and Image Handling
 
-* In development, media files (e.g. user avatars, post images, thumbnails) are stored locally in *
-  *./api/socialnet/media/**.
+* In development, media files (e.g. user avatars, post images, thumbnails) are stored locally in **./api/socialnet/media/**.
 
 * For production, it is recommended to use an external storage service (e.g. S3, MinIO).
 
@@ -152,6 +224,7 @@ docker-compose up --build
 Django admin panel is available at [/admin/]() (superuser setup required).
 
 You can run management commands with:
+
 ``` bash
 docker-compose exec api python manage.py createsuperuser
 ```
