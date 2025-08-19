@@ -1,8 +1,8 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
-from apps.comments.views import CommentViewSet
+from apps.comments.views import CommentListCreateView, CommentDetailView
 
-router = DefaultRouter()
-router.register(r'', CommentViewSet, basename='comments')
-
-urlpatterns = router.urls
+urlpatterns = [
+    path("posts/<int:post_id>/", CommentListCreateView.as_view(), name="post-comments"),
+    path("<int:pk>/", CommentDetailView.as_view(), name="comment-detail"),
+]
