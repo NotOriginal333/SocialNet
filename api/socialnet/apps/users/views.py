@@ -2,7 +2,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from .serializers import UserSerializer
-
+from .models import User
 
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system."""
@@ -18,3 +18,9 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         """Retrieve and return authenticated user."""
         return self.request.user
+
+
+class UserListView(generics.ListAPIView):
+    """List all users."""
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

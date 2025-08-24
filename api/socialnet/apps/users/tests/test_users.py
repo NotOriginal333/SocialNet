@@ -4,7 +4,10 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
+from apps.images.models import UserImage
+
 CREATE_USER_URL = reverse('users:create')
+LIST_URL = reverse('users:list')
 ME_URL = reverse('users:me')
 
 
@@ -87,6 +90,7 @@ class PrivateUserApiTest(TestCase):
         )
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
+        self.avatar = UserImage.objects.create(owner=self.user, image_url="http://example.com/avatar.png")
 
     def test_retrieve_profile_success(self):
         """Test retrieving profile for logged in user."""
@@ -112,3 +116,11 @@ class PrivateUserApiTest(TestCase):
         self.assertEqual(self.user.first_name, payload['first_name'])
         self.assertTrue(self.user.check_password(payload['password']))
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+    def test_user_serializer_returns_avatar(self):
+        """Test that the serializer returns the user's avatar URL."""
+        res = self.client.get(ME_URL)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+        data = res.json()
+        self.assertEqual(data['image_url'], self.avatar.image_url)
