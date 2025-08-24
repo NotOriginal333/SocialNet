@@ -43,7 +43,7 @@ services:
     networks:
       socialnet_net:
         aliases:
-          - proxy.local
+          - api_gateway.local
 
   celery-default:
     build:

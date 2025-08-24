@@ -90,7 +90,7 @@ class TestPostsAPI(APITestCase):
             application=app,
             token="admintoken123",
             expires=timezone.now() + timedelta(days=1),
-            scope="admin"
+            scope="read create update delete admin"
         )
 
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token.token}")
