@@ -30,6 +30,7 @@ urlpatterns = [
     path('comments/', include('apps.comments.urls')),
     path('follows/', include('apps.follows.urls')),
     path('images/', include('apps.images.urls')),
+    path('interactions/', include('apps.interactions.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
