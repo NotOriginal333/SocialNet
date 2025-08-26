@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from apps.interactions.models import Interaction
+
+admin.site.register(Interaction)

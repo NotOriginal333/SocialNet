@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from apps.posts.models import Post
 from apps.comments.models import Comment
 from apps.comments.serializers import CommentSerializer
+from apps.comments.tasks import update_post_comments_count
 
 
 class CommentListCreateView(generics.ListCreateAPIView):
@@ -20,6 +21,7 @@ class CommentListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         post = get_object_or_404(Post, pk=self.kwargs.get("post_id"))
         serializer.save(owner=self.request.user, post=post)
+        update_post_comments_count(post.id)
 
 
 class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -33,3 +35,8 @@ class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def perform_update(self, serializer):
         serializer.save(owner=self.request.user)
+
+    def perform_destroy(self, instance):
+        post = get_object_or_404(Post, pk=self.kwargs.get("post_id"))
+        super().perform_destroy(instance)
+        update_post_comments_count(post.id)

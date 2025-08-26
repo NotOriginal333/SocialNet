@@ -9,8 +9,10 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['id', 'owner', 'replies', 'parent', 'post', 'body', 'created_at', 'updated_at']
-        read_only_fields = ['id', 'owner', 'replies', 'post', 'created_at', 'updated_at']
+        fields = ['id', 'owner', 'likes_count', 'dislikes_count', 'replies',
+                  'parent', 'post', 'body', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'owner', 'replies', 'likes_count', 'dislikes_count',
+                            'post', 'created_at', 'updated_at']
 
     def get_replies(self, obj):
         """Return only direct replies (1 level)."""

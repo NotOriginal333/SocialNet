@@ -28,6 +28,7 @@ class FollowSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        """Automatically assign following user."""
         validated_data['following_user'] = self.context['request'].user
         return super().create(validated_data)
 
