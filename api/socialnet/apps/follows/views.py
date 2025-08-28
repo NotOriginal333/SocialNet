@@ -1,17 +1,17 @@
-from django.shortcuts import get_object_or_404
-
 from rest_framework import (
     viewsets,
     generics
 )
 from rest_framework.exceptions import ValidationError
-from rest_framework.views import APIView
-from rest_framework.response import Response
 
 from apps.follows.models import Follow, FollowRecommendation
 from apps.follows.serializers import FollowSerializer, FollowRecommendationSerializer
-from apps.follows.services import create_follow
-from apps.users.models import User
+from apps.follows.tasks import update_recommendations_for_user
+
+
+def create_follow(following, followed):
+    Follow.objects.create(following_user=following, followed_user=followed)
+    update_recommendations_for_user.delay(following.id)
 
 
 class FollowViewSet(viewsets.ModelViewSet):
@@ -39,10 +39,3 @@ class FollowRecommendationView(generics.RetrieveAPIView):
     def get_object(self):
         recommendation, _ = FollowRecommendation.objects.get_or_create(user=self.request.user)
         return recommendation
-
-
-class FollowUserView(APIView):
-    def post(self, request, user_id):
-        followed = get_object_or_404(User, id=user_id)
-        follow = create_follow(request.user, followed)
-        return Response({"status": "followed", "id": follow.id})
