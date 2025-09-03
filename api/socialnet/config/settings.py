@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'oauth2_provider',
     'drf_spectacular',
+    'apps.common',
     'apps.users',
     'apps.posts',
     'apps.comments',
