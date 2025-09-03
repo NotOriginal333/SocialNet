@@ -27,8 +27,10 @@ network platforms.
 │   │   ├── apps/                             # Django apps
 │   │   │   ├── comments/                     # Comments module
 │   │   │   ├── common/                       # Shared utilities and base classes
+│   │   │   ├── feed/                         # Personalized feed & recommendations system 
 │   │   │   ├── follows/                      # Follow system (subscriptions)
 │   │   │   ├── images/                       # Image storage and processing
+│   │   │   ├── interactions/                 # Tracking and managing user interactions (likes, views, etc.)
 │   │   │   ├── posts/                        # Posts module
 │   │   │   ├── users/                        # User management and authentication
 │   │   │   └── __init__.py
