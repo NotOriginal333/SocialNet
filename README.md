@@ -3,15 +3,13 @@
 This is a scalable backend project built with Django, Django REST Framework, Celery, PostgreSQL, Redis, and a
 Flask-based API gateway server.
 
-It is designed to support image processing, user roles, and premium content access — suitable for real-world B2C social
-network platforms.
 
 ---
 
 ## ️ Tech Stack
 
 - **Backend:** Django 5, DRF, Celery, Pillow
-- **Proxy / OAuth2:** Flask + Authlib (WIP)
+- **API Gateway:** Flask
 - **Queue:** Redis
 - **Database:** PostgreSQL
 - **Containerization:** Docker + Docker Compose
