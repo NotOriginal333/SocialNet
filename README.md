@@ -83,7 +83,7 @@ docker-compose up --build
 #### This will start the following containers:
 
 * **socialnet_backend**: Django backend on port **8000**
-* **auth_proxy**: Flask proxy on port **5000**
+* **api_gateway**: Flask api gateway on port **5000**
 * **postgres_db**: PostgreSQL database on port **5432**
 * **redis**: Redis broker on port **6379**
 * **celery_default**: Celery worker for default queue
